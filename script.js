@@ -1,34 +1,114 @@
 
-/*
-  CONFIGURAÇÃO DA BARBEARIA
-
-  Troque o número abaixo pelo WhatsApp comercial.
-  Use código do país + DDD + número, somente números.
-  Exemplo de formato brasileiro: 5531991234567
-*/
-
 const WHATSAPP_NUMBER = "5531999999999";
 
+const modals = document.querySelectorAll(".modal");
 const menuToggle = document.getElementById("menu-toggle");
 const nav = document.getElementById("nav");
-const form = document.getElementById("booking-form");
+const bookingForm = document.getElementById("booking-form");
 const dateInput = document.getElementById("data");
 
-// Ano automático no rodapé
+let previousFocus = null;
+
+// Ano do rodapé
 document.getElementById("year").textContent =
   new Date().getFullYear();
 
-// Impede a seleção de datas anteriores ao dia atual
-const today = new Date();
-const localToday = [
-  today.getFullYear(),
-  String(today.getMonth() + 1).padStart(2, "0"),
-  String(today.getDate()).padStart(2, "0")
-].join("-");
+// Impede escolher uma data anterior à data local de hoje
+function getLocalDate() {
+  const now = new Date();
 
-dateInput.min = localToday;
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
 
-// Abre e fecha o menu no celular
+  return `${year}-${month}-${day}`;
+}
+
+dateInput.min = getLocalDate();
+
+// Abrir uma janela
+function openModal(id) {
+  const modal = document.getElementById(id);
+
+  if (!modal) return;
+
+  closeAllModals();
+
+  previousFocus = document.activeElement;
+
+  modal.classList.add("is-open");
+  modal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+
+  // Volta o conteúdo da janela para o início
+  const panel = modal.querySelector(".modal-panel");
+  panel.scrollTop = 0;
+
+  const closeButton = modal.querySelector(".modal-close");
+  closeButton.focus();
+
+  closeMenu();
+}
+
+// Fechar todas as janelas
+function closeAllModals() {
+  modals.forEach((modal) => {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+  });
+
+  document.body.classList.remove("modal-open");
+}
+
+// Fechar uma janela e devolver o foco
+function closeModal() {
+  const hasOpenModal = document.querySelector(".modal.is-open");
+
+  if (!hasOpenModal) return;
+
+  closeAllModals();
+
+  if (previousFocus && typeof previousFocus.focus === "function") {
+    previousFocus.focus();
+  }
+}
+
+// Botões que abrem janelas
+document.querySelectorAll("[data-open]").forEach((button) => {
+  button.addEventListener("click", () => {
+    openModal(button.dataset.open);
+  });
+});
+
+// Botões ×
+document.querySelectorAll(".modal-close").forEach((button) => {
+  button.addEventListener("click", closeModal);
+});
+
+// Fechar clicando no fundo escuro
+modals.forEach((modal) => {
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      closeModal();
+    }
+  });
+});
+
+// Fechar usando a tecla Escape
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeModal();
+  }
+});
+
+// Menu do celular
+function closeMenu() {
+  nav.classList.remove("open");
+  menuToggle.setAttribute("aria-expanded", "false");
+  menuToggle.setAttribute("aria-label", "Abrir menu");
+  menuToggle.textContent = "☰";
+}
+
 menuToggle.addEventListener("click", () => {
   const isOpen = nav.classList.toggle("open");
 
@@ -41,34 +121,31 @@ menuToggle.addEventListener("click", () => {
   menuToggle.textContent = isOpen ? "×" : "☰";
 });
 
-// Fecha o menu ao selecionar uma seção
-nav.querySelectorAll("a").forEach((link) => {
-  link.addEventListener("click", () => {
-    nav.classList.remove("open");
-    menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.setAttribute("aria-label", "Abrir menu");
-    menuToggle.textContent = "☰";
+// Fechar menu após navegar para o início
+nav.querySelectorAll('a[href="#inicio"]').forEach((link) => {
+  link.addEventListener("click", closeMenu);
+});
+
+// Selecionar serviço e abrir agendamento
+document.querySelectorAll("[data-book-service]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const service = button.dataset.bookService;
+
+    openModal("booking");
+
+    document.getElementById("servico").value = service;
   });
 });
 
-// Preenche automaticamente o serviço escolhido
-document.querySelectorAll("[data-service]").forEach((link) => {
-  link.addEventListener("click", () => {
-    const serviceSelect = document.getElementById("servico");
-    serviceSelect.value = link.dataset.service;
-  });
-});
-
-// Monta a mensagem de agendamento para o WhatsApp
-form.addEventListener("submit", (event) => {
+// Solicitar agendamento pelo WhatsApp
+bookingForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  if (!form.reportValidity()) return;
+  if (!bookingForm.reportValidity()) return;
 
+  // Configure o número real no início deste arquivo.
   if (!/^\d{12,13}$/.test(WHATSAPP_NUMBER)) {
-    alert(
-      "Configure o número correto do WhatsApp no arquivo script.js."
-    );
+    alert("Configure o número do WhatsApp no arquivo script.js.");
     return;
   }
 
@@ -77,11 +154,16 @@ form.addEventListener("submit", (event) => {
   const data = document.getElementById("data").value;
   const horario = document.getElementById("horario").value;
 
+  if (data < getLocalDate()) {
+    alert("Escolha uma data de hoje em diante.");
+    return;
+  }
+
   const [ano, mes, dia] = data.split("-");
   const dataFormatada = `${dia}/${mes}/${ano}`;
 
   const mensagem = [
-    "Olá! Gostaria de solicitar um agendamento.",
+    "Olá! Gostaria de solicitar um agendamento na Barber Club.",
     "",
     `Nome: ${nome}`,
     `Serviço: ${servico}`,
@@ -92,10 +174,7 @@ form.addEventListener("submit", (event) => {
   ].join("\n");
 
   const url =
-    "https://wa.me/" +
-    WHATSAPP_NUMBER +
-    "?text=" +
-    encodeURIComponent(mensagem);
+    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagem)}`;
 
   window.open(url, "_blank", "noopener,noreferrer");
 });
@@ -103,8 +182,4 @@ form.addEventListener("submit", (event) => {
 // Botão flutuante do WhatsApp
 const whatsappFloat = document.getElementById("whatsapp-float");
 
-whatsappFloat.href =
-  "https://wa.me/" + WHATSAPP_NUMBER;
-
-whatsappFloat.target = "_blank";
-whatsappFloat.rel = "noopener noreferrer";
+whatsappFloat.href = `https://wa.me/${WHATSAPP_NUMBER}`;
