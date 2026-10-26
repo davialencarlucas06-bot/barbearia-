@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101010">
+  <meta name="description" content="Barbearia Premium: cortes modernos, barba e estilo. Agende seu horário pelo WhatsApp.">
+  <title>BARBER CLUB | Barbearia Premium</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="topbar">
+    ESTILO, PRECISÃO E PERSONALIDADE.
+  </div>
+
+  <header class="header">
+    <a class="logo" href="#inicio">BARBER<span>CLUB</span></a>
+
+    <button class="menu-toggle" id="menu-toggle"
+      aria-label="Abrir menu" aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="nav">
+      <a href="#inicio">Início</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#sobre">A barbearia</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#contato" class="nav-cta">Agendar horário</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-content">
+        <span class="eyebrow">SUA MELHOR VERSÃO COMEÇA AQUI</span>
+        <h1>MAIS QUE UM CORTE.<br><span>UM ESTILO.</span></h1>
+        <p>
+          Cortes precisos, barba alinhada e atendimento de qualidade.
+          Seu estilo merece uma experiência diferente.
+        </p>
+        <div class="hero-buttons">
+          <a href="#contato" class="btn btn-gold">AGENDAR AGORA ↗</a>
+          <a href="#servicos" class="btn btn-outline">VER SERVIÇOS</a>
+        </div>
+        <div class="hero-note">
+          <span class="gold-dot"></span>
+          SEU ESTILO. NOSSA ASSINATURA.
+        </div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div><strong>01</strong><span>ESTILO ÚNICO</span></div>
+      <div><strong>02</strong><span>ATENDIMENTO PERSONALIZADO</span></div>
+      <div><strong>03</strong><span>DETALHES QUE FAZEM A DIFERENÇA</span></div>
+    </section>
+
+    <section class="section services" id="servicos">
+      <div class="section-heading">
+        <span class="eyebrow">O QUE FAZEMOS</span>
+        <h2>SERVIÇOS <span>EXCLUSIVOS</span></h2>
+        <p>Escolha seu próximo visual.</p>
+      </div>
+
+      <div class="service-grid">
+        <article class="service-card">
+          <div class="service-icon">✂</div>
+          <h3>CORTE MASCULINO</h3>
+          <p>Do clássico ao moderno, com acabamento cuidadoso.</p>
+          <div class="price">R$ 35 <small>/ sessão</small></div>
+          <a href="#contato" class="service-link" data-service="Corte masculino">ESCOLHER SERVIÇO ↗</a>
+        </article>
+
+        <article class="service-card featured">
+          <div class="service-icon">♛</div>
+          <h3>CORTE + BARBA</h3>
+          <p>O combo completo para renovar seu visual.</p>
+          <div class="price">R$ 55 <small>/ sessão</small></div>
+          <a href="#contato" class="service-link" data-service="Corte + barba">ESCOLHER SERVIÇO ↗</a>
+        </article>
+
+        <article class="service-card">
+          <div class="service-icon">◈</div>
+          <h3>BARBA</h3>
+          <p>Alinhamento e definição para um acabamento impecável.</p>
+          <div class="price">R$ 25 <small>/ sessão</small></div>
+          <a href="#contato" class="service-link" data-service="Barba">ESCOLHER SERVIÇO ↗</a>
+        </article>
+      </div>
+      <p class="disclaimer">Preços demonstrativos. Confirme os valores com a barbearia.</p>
+    </section>
+
+    <section class="about" id="sobre">
+      <div class="about-image"></div>
+      <div class="about-content">
+        <span class="eyebrow">NOSSA ESSÊNCIA</span>
+        <h2>SEU VISUAL.<br><span>NOSSAS HABILIDADES.</span></h2>
+        <p>
+          Acreditamos que um bom corte vai além do espelho.
+          É confiança, cuidado e atenção a cada detalhe.
+          Aqui, cada cliente recebe atenção especial para encontrar
+          um estilo que combine com sua personalidade.
+        </p>
+        <a href="#contato" class="btn btn-gold">VENHA NOS CONHECER ↗</a>
+      </div>
+    </section>
+
+    <section class="section gallery" id="galeria">
+      <div class="section-heading">
+        <span class="eyebrow">INSPIRAÇÃO</span>
+        <h2>ESTILO EM <span>CADA DETALHE</span></h2>
+        <p>Alguns estilos que podem inspirar seu próximo corte.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=700&q=85" alt="Ambiente profissional de barbearia" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=700&q=85" alt="Detalhes de um corte masculino" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=700&q=85" alt="Ferramentas e trabalho de barbeiro" loading="lazy">
+      </div>
+      <p class="disclaimer">Imagens ilustrativas. Substitua pelas fotos reais da barbearia.</p>
+    </section>
+
+    <section class="booking" id="contato">
+      <span class="eyebrow">SEU PRÓXIMO CORTE ESPERA POR VOCÊ</span>
+      <h2>PRONTO PARA <span>MUDAR O VISUAL?</span></h2>
+      <p>Escolha o serviço e fale conosco pelo WhatsApp para combinar seu horário.</p>
+
+      <form id="booking-form">
+        <label for="nome">Seu nome</label>
+        <input id="nome" name="nome" type="text" placeholder="Como podemos te chamar?" required>
+
+        <label for="servico">Serviço desejado</label>
+        <select id="servico" name="servico" required>
+          <option value="">Selecione um serviço</option>
+          <option>Corte masculino</option>
+          <option>Corte + barba</option>
+          <option>Barba</option>
+        </select>
+
+        <label for="data">Data desejada</label>
+        <input id="data" name="data" type="date" required>
+
+        <label for="horario">Horário preferido</label>
+        <select id="horario" name="horario" required>
+          <option value="">Selecione um horário</option>
+          <option>09:00</option>
+          <option>10:00</option>
+          <option>11:00</option>
+          <option>13:00</option>
+          <option>14:00</option>
+          <option>15:00</option>
+          <option>16:00</option>
+          <option>17:00</option>
+          <option>18:00</option>
+        </select>
+
+        <button type="submit" class="btn btn-gold submit-btn">
+          SOLICITAR AGENDAMENTO NO WHATSAPP ↗
+        </button>
+        <p class="form-note">O horário será confirmado pela barbearia via WhatsApp.</p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="logo" href="#inicio">BARBER<span>CLUB</span></a>
+    <p>Seu estilo, nossa assinatura.</p>
+    <p class="copyright">© <span id="year"></span> Barber Club. Todos os direitos reservados.</p>
+  </footer>
+
+  <a class="whatsapp-float" id="whatsapp-float"
+     href="#" aria-label="Fale com a barbearia pelo WhatsApp">WA</a>
+
+  <script src="script.js"></script>
+</body>
+</html>
